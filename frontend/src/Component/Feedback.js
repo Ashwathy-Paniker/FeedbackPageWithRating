@@ -59,14 +59,16 @@ export default function Feedback() {
         alert(res.data.err);
       } else {
         alert(res.data.msg);
+        setFeedback("")
       }
     });
+    setActive(false)
   };
   const DeleteReview = (id) => {
-    console.log("Delete user called");
+    console.log("Delete review called");
     deleteReview(id).then((res) => {
       console.log(id._id);
-      alert("User Deleted :(");
+      alert("Review Deleted :(");
     });
     GetUser();
   };
@@ -118,7 +120,8 @@ export default function Feedback() {
 
   const nums = getRating();
   const handleClick = (num) => {
-    setActive(true);
+    document.getElementById(`num${num}`).style.backgroundColor = "#3182CE"
+    // setActive(true);
     setRating(num);
     console.log(rating);
   };
@@ -143,10 +146,11 @@ export default function Feedback() {
                   return (
                     <WrapItem>
                       <Button
+                        id={`num${num}`}
                         borderRadius="60"
                         key={index}
                         onClick={() => handleClick(num)}
-                        colorScheme={active ? "linkedin" : "facebook"}
+                        colorScheme={"facebook"}
                         variant='outline'
                       >
                         {num}
@@ -160,6 +164,7 @@ export default function Feedback() {
                 <Flex>
                   <Input
                     placeholder="Write Something..."
+                    value={feedback}
                     onChange={(event) => {
                       setFeedback(event.target.value);
                     }}
